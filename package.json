@@ -1,0 +1,19 @@
+{
+  "name": "simons-sweet-shop",
+  "version": "1.0.0",
+  "description": "Simons Sweet Shop",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "Simons",
+    "Sweet",
+    "Shop"
+  ],
+  "author": "Mirla Chucre",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.2.2"
+  }
+}
