@@ -79,7 +79,7 @@ async function getBestPack(dataInput) {
 async function validateInput(sweetOrder) {
 
   const listValidationError = [];
-  const patterSweetOrder = /\d*/gm;
+  const patterSweetOrder = /\d/gm;
 
   if (!sweetOrder.match(patterSweetOrder)) {
     listValidationError.push("The sweet order is not in a valid order format for the shop.");
