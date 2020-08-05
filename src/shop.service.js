@@ -4,30 +4,42 @@ async function findBySizePack(packs, sweetOrder) {
 
   try {
 
-    let result = 0;
-
     for (let index = 0; index < packs.length; index++) {
       const pack = packs[index];
 
-      if (pack >= sweetOrder) {
+      if (Number(pack) >= Number(sweetOrder)) {
         const mod = pack % sweetOrder;
-        // console.log(pack / sweetOrder);
-        result = pack / sweetOrder;
-        return result;
-      }
 
+        if (mod == 0) {
+          return `1 x ${pack}`
+        } else if ( mod <= packs[0] && mod < sweetOrder < pack ) {
+          return `1 x ${pack}`
+        } else {
+          let oldBetterSolution = 0;
+          let oldResult = '';
+          for (let j = index - 1; j >= 0; j--) {
+
+            let m = 1;
+            let betterSolution = 0;
+            let result = 0;
+            while(sweetOrder > betterSolution) {
+              betterSolution = m*packs[j];
+              result += `${1} x ${packs[j]}; `;
+              m++;
+            }
+
+            if ((betterSolution - sweetOrder) < (oldBetterSolution - sweetOrder) || (oldBetterSolution == 0)) {
+              oldBetterSolution = betterSolution;
+              oldResult = result;
+            }
+          }
+
+          return oldResult;
+        }
+      } else {
+      }
     }
 
-    // packs.forEach(pack => {
-    //   if (pack >= sweetOrder) {
-    //     const mod = pack % sweetOrder;
-    //     if (mod == 0) {
-    //       console.log(pack / sweetOrder);
-    //       result = pack / sweetOrder;
-    //       break;
-    //     }
-    //   }
-    // });
 
     return result;
 
@@ -63,9 +75,7 @@ async function getBestPack(dataInput) {
   }
 
   const packs = await getPacksFromFile(file);
-
   console.log(`[INFO] packs on store: ${packs}`);
-
   return await findBySizePack(packs, sweetOrder);
 }
 

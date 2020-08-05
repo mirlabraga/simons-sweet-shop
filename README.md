@@ -28,3 +28,8 @@ orders. You can use this as a guide to test your solution.
 | 251 | 1 x 500  |  2 x 250 = can send less packs with available pack sizes |
 | 501 | 1 x 500 / 1 x 250  | 1 x 1,000 = too many sweets OR 3 x 250 = can send less packs with available pack sizes |
 | 12,001  | 2 x 5,000 / 1 x 2,000 / 1 x 250 | 3 x 5,000 = too many sweets|
+
+## Implementation
+
+-> Nodejs
+-> For run the app: node app.js pack-input (pack)
