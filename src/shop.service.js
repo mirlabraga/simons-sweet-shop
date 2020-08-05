@@ -10,22 +10,20 @@ async function findBySizePack(packs, sweetOrder) {
       if (Number(pack) >= Number(sweetOrder)) {
         const mod = pack % sweetOrder;
 
-        if (mod == 0) {
-          return `1 x ${pack}`
-        } else if ( mod <= packs[0] && mod < sweetOrder < pack ) {
+        if ((mod == 0) || ( mod <= packs[0] && mod < sweetOrder < pack )) {
           return `1 x ${pack}`
         } else {
           let oldBetterSolution = 0;
           let oldResult = '';
           for (let j = index - 1; j >= 0; j--) {
 
-            let m = 1;
+            let multiplier = 1;
             let betterSolution = 0;
             let result = 0;
             while(sweetOrder > betterSolution) {
-              betterSolution = m*packs[j];
-              result += `${1} x ${packs[j]}; `;
-              m++;
+              betterSolution = multiplier*packs[j];
+              result += `1 x ${packs[j]}; `;
+              multiplier++;
             }
 
             if ((betterSolution - sweetOrder) < (oldBetterSolution - sweetOrder) || (oldBetterSolution == 0)) {
@@ -36,7 +34,6 @@ async function findBySizePack(packs, sweetOrder) {
 
           return oldResult;
         }
-      } else {
       }
     }
 
@@ -91,4 +88,7 @@ async function validateInput(sweetOrder) {
   return listValidationError;
 }
 
+exports.validateInput = validateInput;
+exports.findBySizePack = findBySizePack;
+exports.getPacksFromFile = getPacksFromFile;
 exports.getBestPack = getBestPack;

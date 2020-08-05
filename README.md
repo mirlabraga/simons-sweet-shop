@@ -29,7 +29,29 @@ orders. You can use this as a guide to test your solution.
 | 501 | 1 x 500 / 1 x 250  | 1 x 1,000 = too many sweets OR 3 x 250 = can send less packs with available pack sizes |
 | 12,001  | 2 x 5,000 / 1 x 2,000 / 1 x 250 | 3 x 5,000 = too many sweets|
 
-## Implementation
+## Development Requirements
 
--> Nodejs
--> For run the app: node app.js pack-input (pack)
+- node >= v12 [![node](https://img.shields.io/badge/node-v12-blue.svg?cacheSeconds=2592000)](https://nodejs.org/en/download/)
+- npm >= v6 [![npm](https://img.shields.io/badge/npm-v6.3.0-blue)](https://www.npmjs.com/get-npm)
+
+## Running the app
+
+```bash
+# clone project from github
+$ git clone git@github.com:mirlabraga/simons-sweet-shop.git
+
+# run npm install for install dependencies
+$ npm install
+
+# run on the root project: node app.js pack-input (pack)
+$ node app.js pack-input 250
+
+```
+
+## Test
+
+```bash
+# run tests
+$ npm run test
+
+```
