@@ -4,39 +4,25 @@ async function findBySizePack(packs, sweetOrder) {
 
   try {
 
-    for (let index = 0; index < packs.length; index++) {
-      const pack = packs[index];
+    let maxWaste = 0;
+    let result = [];
 
-      if (Number(pack) >= Number(sweetOrder)) {
-        const mod = pack % sweetOrder;
+    for (let j = 0; j <= packs.length; j++) {
 
-        if ((mod == 0) || ( mod <= packs[0] && mod < sweetOrder < pack )) {
-          return `1 x ${pack}`
-        } else {
-          let oldBetterSolution = 0;
-          let oldResult = '';
-          for (let j = index - 1; j >= 0; j--) {
+      const waste = sweetOrder % packs[j];
+      // console.log("packs[j]", packs[j], "maxWaste", maxWaste, "waste", waste);
 
-            let multiplier = 1;
-            let betterSolution = 0;
-            let result = 0;
-            while(sweetOrder > betterSolution) {
-              betterSolution = multiplier*packs[j];
-              result += `1 x ${packs[j]}; `;
-              multiplier++;
-            }
-
-            if ((betterSolution - sweetOrder) < (oldBetterSolution - sweetOrder) || (oldBetterSolution == 0)) {
-              oldBetterSolution = betterSolution;
-              oldResult = result;
-            }
-          }
-
-          return oldResult;
-        }
+      if (waste == 0) {
+        maxWaste = sweetOrder;
+        result = [];
+        result.push(packs[j]);
+      } else if (maxWaste < waste) {
+        maxWaste = waste;
+        result = [];
+        result.push(packs[j]);
       }
-    }
 
+    }
 
     return result;
 
@@ -45,6 +31,7 @@ async function findBySizePack(packs, sweetOrder) {
     throw new Error(`[ERROR] a error happend when the application try to read the line ${file}`);
   }
 }
+
 
 async function getPacksFromFile(file) {
   const readInterface = await readFile(file);
