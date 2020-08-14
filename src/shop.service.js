@@ -6,22 +6,24 @@ async function findBySizePack(packs, sweetOrder) {
 
     let maxWaste = 0;
     let result = [];
+    let totalArray = 0;
 
-    for (let j = 0; j <= packs.length; j++) {
+    while(totalArray < sweetOrder) {
+      for (let j = 0; j <= packs.length; j++) {
+        const waste = sweetOrder % packs[j];
 
-      const waste = sweetOrder % packs[j];
-      // console.log("packs[j]", packs[j], "maxWaste", maxWaste, "waste", waste);
-
-      if (waste == 0) {
-        maxWaste = sweetOrder;
-        result = [];
-        result.push(packs[j]);
-      } else if (maxWaste < waste) {
-        maxWaste = waste;
-        result = [];
-        result.push(packs[j]);
+        if (waste == 0) {
+          maxWaste = sweetOrder;
+          result = [];
+          result.push(Number(packs[j]));
+        } else if (maxWaste < waste) {
+          maxWaste = waste;
+          if (waste == sweetOrder)
+            result = [];
+          result.push(Number(packs[j]));
+        }
       }
-
+      totalArray = arraySum(result);
     }
 
     return result;
@@ -32,6 +34,7 @@ async function findBySizePack(packs, sweetOrder) {
   }
 }
 
+const arraySum = arr => arr.reduce((a,b) => a + b, 0);
 
 async function getPacksFromFile(file) {
   const readInterface = await readFile(file);
