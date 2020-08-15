@@ -34,14 +34,19 @@ test('find the best size pack',
     const result4 = await packService.findBySizePack(packs, 500);
     expect(result4).toEqual([500]);
 
-    const result5 = await packService.findBySizePack(packs, 1000);
+    const result5 = await packService.findBySizePack(packs, 751);
     expect(result5).toEqual([1000]);
 
-    // ---
-    // const result6 = await packService.findBySizePack(packs, 501, null, []);
-    // expect(result5).toEqual([500, 250]);
+    const result6 = await packService.findBySizePack(packs, 999);
+    expect(result6).toEqual([1000]);
 
-    // const result5 = await packService.findBySizePack(packs, 12,001);
-    // expect(result5).toEqual(["5,000", "2,000", 250]);
+    const result7 = await packService.findBySizePack(packs, 1000);
+    expect(result7).toEqual([1000]);
+
+    const result8 = await packService.findBySizePack(packs, 501);
+    expect(result8).toEqual([500, 250]);
+
+    // const result9 = await packService.findBySizePack(packs, 12001);
+    // expect(result9).toEqual([5000, 5000, 2000, 250]);
 
 });

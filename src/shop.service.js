@@ -18,9 +18,19 @@ async function findBySizePack(packs, sweetOrder) {
           result.push(Number(packs[j]));
         } else if (maxWaste < waste) {
           maxWaste = waste;
-          if (waste == sweetOrder)
+          if (waste == sweetOrder) {
             result = [];
-          result.push(Number(packs[j]));
+            result.push(Number(packs[j]));
+
+            let diferenca1 = packs[j] - sweetOrder;
+            const diferenca2 = packs.filter(pack => (sweetOrder - pack) > 0)[0];
+
+            if(diferenca1 > diferenca2) {
+              result.pop();
+              result.push(Number(packs[j-1]));
+              result.push(Number(diferenca2));
+            }
+          }
         }
       }
       totalArray = arraySum(result);
