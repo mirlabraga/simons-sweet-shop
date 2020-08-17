@@ -8,32 +8,44 @@ async function findBySizePack(packs, sweetOrder) {
     let result = [];
     let totalArray = 0;
 
-    while(totalArray < sweetOrder) {
-      for (let j = 0; j <= packs.length; j++) {
-        const waste = sweetOrder % packs[j];
+    while (totalArray < sweetOrder) {
 
+
+      if (sweetOrder > Number(packs[packs.length - 1])) {
+        result.push(Number(packs[packs.length - 1]));
+        totalArray = totalPacks(result);
+        continue;
+      }
+
+      if (totalArray) {
+        const difference = packs.filter(pack => pack - (sweetOrder - totalArray) > 0);
+        result.push(Number(difference[0]));
+        totalArray = totalPacks(result);
+        continue;
+      }
+
+      for (let j = 0; j < packs.length; j++) {
+        const waste = sweetOrder % packs[j];
         if (waste == 0) {
           maxWaste = sweetOrder;
           result = [];
           result.push(Number(packs[j]));
         } else if (maxWaste < waste) {
+
           maxWaste = waste;
           if (waste == sweetOrder) {
             result = [];
             result.push(Number(packs[j]));
-
-            let diferenca1 = packs[j] - sweetOrder;
-            const diferenca2 = packs.filter(pack => (sweetOrder - pack) > 0)[0];
-
-            if(diferenca1 > diferenca2) {
+            const difference2 = packs[j] - sweetOrder;
+            if (difference2 > packs[0]) {
               result.pop();
-              result.push(Number(packs[j-1]));
-              result.push(Number(diferenca2));
+              result.push(Number(packs[j - 1]));
+              totalArray = totalPacks(result);
             }
           }
         }
       }
-      totalArray = arraySum(result);
+      totalArray = totalPacks(result);
     }
 
     return result;
@@ -44,7 +56,7 @@ async function findBySizePack(packs, sweetOrder) {
   }
 }
 
-const arraySum = arr => arr.reduce((a,b) => a + b, 0);
+const totalPacks = arr => arr.reduce((a, b) => a + b, 0);
 
 async function getPacksFromFile(file) {
   const readInterface = await readFile(file);

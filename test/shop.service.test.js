@@ -46,6 +46,9 @@ test('find the best size pack',
     const result8 = await packService.findBySizePack(packs, 501);
     expect(result8).toEqual([500, 250]);
 
+    const result9 = await packService.findBySizePack(packs, 2275);
+    expect(result9).toEqual([2000, 500]);
+
     // const result9 = await packService.findBySizePack(packs, 12001);
     // expect(result9).toEqual([5000, 5000, 2000, 250]);
 
